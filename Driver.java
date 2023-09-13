@@ -1,7 +1,5 @@
 // import ANTLR's runtime libraries
 import org.antlr.v4.runtime.*;
-import java.io.FileWriter;
-//import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Driver
@@ -9,12 +7,7 @@ public class Driver
 
 	public static void main(String[] args) throws Exception 
 	{
-		// Input File
-		// Inputs from ./Micro.sh are System.in not file names
-		//String inputFile = null;
-		//if ( args.length>0 ) inputFile = args[0];
-
-		// Establish character stream from file to Lexer
+		// Establish character stream from System.in to Lexer
 		CharStream input = CharStreams.fromStream(System.in);
 		LittleLexer lexer = new LittleLexer(input);
 		
@@ -22,10 +15,8 @@ public class Driver
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		tokens.fill();
 		
-		// Output File
-		String outputFile = "output.txt";//linputFile.replace("micro", "out");
-		FileWriter outputWriter = new FileWriter(outputFile);
-		PrintWriter printWriter = new PrintWriter(outputWriter);
+		// Output To StdOut
+		PrintWriter printWriter = new PrintWriter(System.out);
 		
 		
 		Vocabulary lexerVocab = lexer.getVocabulary();
@@ -41,7 +32,6 @@ public class Driver
 		
 		// Closing writing resources
 		printWriter.close();
-		outputWriter.close();
 	}
 	
 
