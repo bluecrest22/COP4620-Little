@@ -1,9 +1,9 @@
 /**
- * Define a grammar called Hello
+ * COP4620 
+ * Little Grammar
+ * Step 1
  */
 grammar Little;
-/**
-Dont think this is necessary at STEP 1
 
 r      : OPERATOR
 	   | KEYWORD
@@ -12,7 +12,6 @@ r      : OPERATOR
 	   | FLOATLITERAL
 	   | STRINGLITERAL
 	   ;
- */
 
 	   
 //Operators := + - * / = != < > ( ) ; , <= >=
