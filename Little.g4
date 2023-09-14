@@ -1,7 +1,7 @@
 /**
  * Define a grammar called Hello
  */
-lexer grammar Little;
+grammar Little;
 /**
 Dont think this is necessary at STEP 1
 
