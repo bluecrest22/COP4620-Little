@@ -1,10 +1,9 @@
 // import ANTLR's runtime libraries
 import org.antlr.v4.runtime.*;
-import java.io.PrintWriter;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 public class Driver
 {
-
 	public static void main(String[] args) throws Exception 
 	{
 		// Establish character stream from System.in to Lexer
@@ -13,28 +12,29 @@ public class Driver
 		
 		// Capture tokens from lexer
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		tokens.fill();
 		
-		// Output To StdOut
-		PrintWriter printWriter = new PrintWriter(System.out);
+		// Creates a parser that feeds off the token buffer
+		LittleParser parser = new LittleParser(tokens);
 		
+		// Prevents extraneous output to console
+		parser.removeErrorListeners();
 		
-		Vocabulary lexerVocab = lexer.getVocabulary();
-		int tokenListSize = tokens.getTokens().size();
-		int tokenNumber = 0;
-		for (Token var : tokens.getTokens())
+		// Terminates parsing once parser finds syntax error
+		parser.setErrorHandler(new BailErrorStrategy());
+		
+		// Catches Syntax Errors
+		try
 		{
-			tokenNumber++;
-			if(tokenNumber == tokenListSize) {break;}
-			printWriter.printf("Token Type: %s\n", lexerVocab.getSymbolicName(var.getType()));
-			printWriter.printf("Value: %s\n", var.getText());
+			parser.program();
+		}
+		catch(ParseCancellationException e)
+		{
+			System.out.println("Not accepted");
+			System.exit(0);	
 		}
 		
-		// Closing writing resources
-		printWriter.close();
+		System.out.println("Accepted");
 	}
-	
-
 }
 
 
